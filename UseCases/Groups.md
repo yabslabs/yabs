@@ -1,7 +1,7 @@
 ## Groups
 
 Groups define the basic structure.
-They can have members (Users), projects and Subgroups
+They can have members in the form of `users` and contain `projects` and `groups`(subGroups)
 
 ### Group Operations
 
