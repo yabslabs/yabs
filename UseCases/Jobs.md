@@ -1,5 +1,7 @@
 ## Jobs
 
+Jobs are instaces of `JobTemplates`.
+
 ### Create
 
 #### Schedule Job
