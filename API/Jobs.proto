@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package yabs.jobs.api.v1;
+
+option go_package ="jobsAPI";
+
+service JobService {
+
+    // ---------
+    // Probes
+    // ---------
+    rpc Healthz(google.protobuf.Empty) returns (yabslabs.common.api.ReturnMessage) {
+        option (google.api.http) = {
+           get: "/healthz"
+        };
+    }
+
+    rpc Ready(google.protobuf.Empty) returns (yabslabs.common.api.ReturnMessage) {
+        option (google.api.http) = {
+           get: "/ready"
+        };
+    }
+
+    rpc Validate(google.protobuf.Empty) returns (yabslabs.common.api.Labels) {
+        option (google.api.http) = {
+           get: "/validate"
+        };
+    }
+
+
+    // ---------
+    // CREATE Jobs
+    // ---------
+    rpc CreateNewJob() returns (Job) {
+        option (google.api.http) = {
+            get: "/Jobs"
+        };
+
+        option (yabslabs.auth.api.v1.method_auth) = {
+            role: 'ADMIN:Admin'
+        };
+    }
+
+    // ---------
+    // READ Jobs
+    // ---------
+    rpc GetAllJobs() returns (Jobs) {
+        option (google.api.http) = {
+            get: "/Jobs"
+        };
+
+        option (yabslabs.auth.api.v1.method_auth) = {
+            role: 'ADMIN:Admin'
+        };
+    }
+    rpc GetJob(jobid) returns (Job) {
+        option (google.api.http) = {
+            get: "/Jobs"
+        };
+
+        option (yabslabs.auth.api.v1.method_auth) = {
+            role: 'ADMIN:Admin'
+        };
+    }
+
+    // ---------
+    // UPDATE Jobs
+    // ---------
+    rpc UpdateJob(jobid) returns () {
+        option (google.api.http) = {
+            get: "/Jobs"
+        };
+
+        option (yabslabs.auth.api.v1.method_auth) = {
+            role: 'ADMIN:Admin'
+        };
+    }
+
+    // ---------
+    // DELETE Jobs
+    // ---------
+    rpc DeleteJob(jobid) returns () {
+        option (google.api.http) = {
+            get: "/Jobs"
+        };
+
+        option (yabslabs.auth.api.v1.method_auth) = {
+            role: 'ADMIN:Admin'
+        };
+    }
+}
+
+message Job {
+    uint64 jobid = 1; 
+    string name = 2; 
+    status status = 3;
+}
+
+message Jobs {
+    repeated Job jobs = 1;
+}
+
+enum Status {
+    UNKNOWN = 0;
+    ADDED_NOT_VERIFIED = 1;
+    READY = 2;
+}
