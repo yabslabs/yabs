@@ -1,6 +1,12 @@
+## Groups
+
+Groups define the basic structure.
+They can have members (Users), projects and Subgroups
+
 ### Group Operations
 
 #### Add Group
+#### Add SubGroups
 #### Get Group
 #### List Groups
 #### Update Group

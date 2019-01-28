@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package yabs.groups.api.v1;
+package yabs.projects.api.v1;
 
-option go_package ="groupsAPI";
+option go_package ="projectsAPI";
 
-service GroupsService {
+service ProjectsService {
 
     // ---------
     // Probes
