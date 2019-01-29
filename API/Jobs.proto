@@ -43,7 +43,7 @@ service JobService {
     // ---------
     // READ Jobs
     // ---------
-    rpc GetAllJobs() returns (Jobs) {
+    rpc GetJobs(Filters) returns (Jobs) {
         option (google.api.http) = {
             get: "/jobs"
         };
@@ -92,7 +92,7 @@ service JobService {
 message Job {
     uint64 jobid = 1; 
     string name = 2; 
-    status status = 3;
+    Status status = 3;
 }
 
 message Jobs {
