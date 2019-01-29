@@ -6,6 +6,7 @@ Jobs are instaces of `JobTemplates`.
 
 #### Schedule Job
 #### Run Job
+#### Abort job
 
 ### Get
 

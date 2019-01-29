@@ -11,8 +11,11 @@ They can have members in the form of `users` and contain `projects` and `groups`
 #### List Groups
 #### Update Group
 #### Remove Group
+#### Remove Subgroup
 #### Deactivate Group
 #### Reactivate Group
+#### Add Project
+#### Remove Project
 
 ### Group Member Operations
 
