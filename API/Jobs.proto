@@ -9,19 +9,19 @@ service JobService {
     // ---------
     // Probes
     // ---------
-    rpc Healthz(google.protobuf.Empty) returns (yabslabs.common.api.ReturnMessage) {
+    rpc Healthz(google.protobuf.Empty) returns (google.rpc.Status) {
         option (google.api.http) = {
            get: "/healthz"
         };
     }
 
-    rpc Ready(google.protobuf.Empty) returns (yabslabs.common.api.ReturnMessage) {
+    rpc Ready(google.protobuf.Empty) returns (google.rpc.Status) {
         option (google.api.http) = {
            get: "/ready"
         };
     }
 
-    rpc Validate(google.protobuf.Empty) returns (yabslabs.common.api.Labels) {
+    rpc Validate(google.protobuf.Empty) returns (google.rpc.Status) {
         option (google.api.http) = {
            get: "/validate"
         };
