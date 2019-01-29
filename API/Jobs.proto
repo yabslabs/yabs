@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package yabs.jobs.api.v1;
 
-option go_package ="jobsAPI";
+option go_package ="api";
 
 service JobService {
 
@@ -32,7 +32,7 @@ service JobService {
     // ---------
     rpc CreateNewJob() returns (Job) {
         option (google.api.http) = {
-            get: "/Jobs"
+            get: "/jobs"
         };
 
         option (yabslabs.auth.api.v1.method_auth) = {
@@ -45,7 +45,7 @@ service JobService {
     // ---------
     rpc GetAllJobs() returns (Jobs) {
         option (google.api.http) = {
-            get: "/Jobs"
+            get: "/jobs"
         };
 
         option (yabslabs.auth.api.v1.method_auth) = {
@@ -54,7 +54,7 @@ service JobService {
     }
     rpc GetJob(jobid) returns (Job) {
         option (google.api.http) = {
-            get: "/Jobs"
+            get: "/jobs"
         };
 
         option (yabslabs.auth.api.v1.method_auth) = {
@@ -67,7 +67,7 @@ service JobService {
     // ---------
     rpc UpdateJob(jobid) returns () {
         option (google.api.http) = {
-            get: "/Jobs"
+            put: "/jobs"
         };
 
         option (yabslabs.auth.api.v1.method_auth) = {
@@ -80,7 +80,7 @@ service JobService {
     // ---------
     rpc DeleteJob(jobid) returns () {
         option (google.api.http) = {
-            get: "/Jobs"
+            delete: "/jobs"
         };
 
         option (yabslabs.auth.api.v1.method_auth) = {

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package yabs.tenants.api.v1;
 
-option go_package ="tenantsAPI";
+option go_package ="api";
 
 service tenantsService {
 
