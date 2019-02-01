@@ -22,3 +22,7 @@ They can have members in the form of `users` and contain `projects` and `groups`
 #### List Group Members
 #### Add User to Group
 #### Remove User from Group
+
+
+#### List SubGroup of Group
+#### List Projects of Group

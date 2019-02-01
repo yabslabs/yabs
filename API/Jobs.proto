@@ -105,12 +105,11 @@ enum Status {
     PENDING = 2;
     RUNNING = 3;
     FAILED = 4;
-    SUCCESS = 5;
+    SUCCEEDED = 5;
     CANCELED = 6;
     SKIPPED = 7;
-    MANUAL = 8;
-    STUCK = 9;
-    RETRIED = 10;
-    PAUSED = 11;
-    SUSPENDED = 12;
+    STUCK = 8;
+    RETRIED = 9;
+    PAUSED = 10;
+    SUSPENDED = 11;
 }
