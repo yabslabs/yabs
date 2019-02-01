@@ -2,16 +2,15 @@
 
 A Job can be defined with a simple `.yabs.yml`.
 
-## Scheduler 
+## Scheduler
 
 ### Job
 
-A job is defined by a list of parameters that define the job behavior.
+A job is defined by a list of parameters that define the job behaviour.
 
 | Keyword  | Required | Description                                               |
 |----------|----------|-----------------------------------------------------------|
 | provider | yes      | The Provider specifies a docker image with all components |
-
 
 #### Predefined schedules
 
@@ -26,5 +25,3 @@ Entry                  | Description                                | Equivalent
 @weekly                | Run once a week, midnight between Sat/Sun  | 0 0 0 * * 0
 @daily (or @midnight)  | Run once a day, midnight                   | 0 0 0 * * *
 @hourly                | Run once an hour, beginning of hour        | 0 0 * * * *
-
-
