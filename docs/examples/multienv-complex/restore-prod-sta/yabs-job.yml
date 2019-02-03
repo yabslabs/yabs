@@ -2,7 +2,7 @@
 apiVersion: alpha/v1
 kind: JobDefinition
 metadata:
-  name: github.com daily backup
+  name: github.com restore prod to test
   namespace: restore-staging
 spec: 
   runner:
