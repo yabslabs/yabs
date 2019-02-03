@@ -1,5 +1,5 @@
 apiVersion: alpha/v1
-kind: CronJob
+kind: Job
 metadata:
   name: github.com daily backup
   namespace: staging
