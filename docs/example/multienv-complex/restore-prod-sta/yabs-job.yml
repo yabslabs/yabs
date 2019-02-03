@@ -1,0 +1,16 @@
+## This block specifies which API Version to use and what kind of object this is
+apiVersion: alpha/v1
+kind: JobDefinition
+metadata:
+  name: github.com daily backup
+  namespace: restore-staging
+spec: 
+  runner:
+    selector:
+      name:
+  stages:
+    - restore
+  task 1:
+    stage: restore
+    source: "{backupStorage}.production"
+    provider: "{provider}.staging"
