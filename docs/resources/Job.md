@@ -1,4 +1,4 @@
-# JobDefinition
+# Job
 
 A Job can be defined with a simple `.yabs.yml`.
 

@@ -1,6 +1,6 @@
 ## This block specifies which API Version to use and what kind of object this is
 apiVersion: alpha/v1
-kind: JobDefinition
+kind: Job
 metadata:
   name: github.com daily backup
   namespace: staging

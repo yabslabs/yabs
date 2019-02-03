@@ -1,6 +1,6 @@
 ## This block specifies which API Version to use and what kind of object this is
 apiVersion: alpha/v1
-kind: ProviderDefinition
+kind: Provider
 metadata:
   name: github.com
   namespace: staging
