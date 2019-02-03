@@ -1,0 +1,20 @@
+## This block specifies which API Version to use and what kind of object this is
+apiVersion: alpha/v1
+kind: StorageDefinition
+metadata:
+  name: github.com storage
+  namespace: staging
+spec:
+  - name: Cache
+    type: fs
+    path: cache/
+  - name: Backup
+    type: s3
+    path: https://somes3bucket
+    Access_key_ID: {someKeyID}
+    Secret_access_key: {someSecret}
+  - name: Archive
+    type: s3
+    path: https://somes3bucket
+    Access_key_ID: {someKeyID}
+    Secret_access_key: {someSecret} 

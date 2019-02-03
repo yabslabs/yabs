@@ -1,0 +1,73 @@
+## This block specifies which API Version to use and what kind of object this is
+apiVersion: alpha/v1
+kind: JobDefinition
+metadata:
+  name: github.com daily backup
+  namespace: staging
+spec:
+
+  ## Provide (n) schedules for when the job should be executed
+  ## There are predefined values or use cron notation diretcly
+  schedule:
+    - "@hourly"
+    - "@every 1h30m10s"
+    - lifecycle:
+      - "0 0 * ? JAN,FEB,NOV,DEC * *"
+
+  ## 
+  reSchedulePolicy:
+
+  ##
+  runner:
+    selector:
+      name: 
+    
+  ## The stages define 
+  stages:
+    - backup
+    - compress
+    - encrypt
+    - upload
+    - lifecycle
+    - archive
+    - restore
+
+  ##
+  task 1:
+    stage: backup
+    source: {backupProvider}
+    selector: 
+      runner:
+    reSchedulePolicy:
+    taskGroup: A
+    retry: 3
+    
+  task 2:
+    stage: compress
+    algorith: tar
+    taskGroup: A
+
+  task 3:
+    stage: encrypt
+    key: {secretPlaceholder}
+    taskGroup: A
+
+  task 4:
+    stage: upload
+    storage: {storageAsDefined}
+    taskGroup: A
+
+  task 5:
+    stage: lifecycle
+    retention: 30d
+    taskGroup: B
+
+  task 6:
+    stage: archive
+    provider: Backup
+    storage: {storageAsDefined}
+    retention: 30d
+    allow_failure: yes
+
+  task 7:
+    stage: restore

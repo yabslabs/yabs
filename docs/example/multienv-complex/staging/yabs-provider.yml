@@ -1,0 +1,16 @@
+## This block specifies which API Version to use and what kind of object this is
+apiVersion: alpha/v1
+kind: ProviderDefinition
+metadata:
+  name: github.com
+  namespace: staging
+
+## The Provider specifies a docker image with all components neccesary to backup / restore that specific provider
+## For example the github.com provider can backup github
+provider: 
+  image: yabslabs/provider/github.com
+  spec:
+    GIT_ACCESS_TOKEN: {someAcccessToken}
+    GIT_USERNAME: {someUsername}
+
+
