@@ -1,10 +1,11 @@
-## This block specifies which API Version to use and what kind of object this is
 apiVersion: alpha/v1
 kind: Job
 metadata:
   name: github.com restore prod to test
-  namespace: restore-staging
-spec: 
+  namespace: staging
+spec:
+  restartPolicy: Never
+  backoffLimit: 5
   runner:
     selector:
       name: my-project-runner
@@ -13,4 +14,4 @@ spec:
   task 1:
     stage: restore
     source: "{backupStorage}.production"
-    provider: "{provider}.staging"
+    provider: "{provider}"
