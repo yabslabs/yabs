@@ -10,10 +10,6 @@ If no `namespace` is set we default to `default`.
 
 A job is defined by a list of parameters that define the job behaviour.
 
-| Keyword  | Required | Description                                               |
-|----------|----------|-----------------------------------------------------------|
-| provider | yes      | The Provider specifies a docker image with all components |
-
 ### Predefined schedules
 
 > https://godoc.org/github.com/robfig/cron
