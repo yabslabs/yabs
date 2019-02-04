@@ -30,47 +30,74 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 };
 
 service JobService {
-    rpc CreateJob(UserCredential) returns (google.protobuf.Empty) {
+    rpc CreateJob(Job) returns (Job) {
         option (google.api.http) = {
-           post: "/"
+           post: "/jobs"
            body: "*"
         };
     }
 
-    rpc UpdateJob() returns (google.protobuf.Empty) {
+    rpc GetJobById(JobID) returns (Job) {
         option (google.api.http) = {
-           put: "/"
+           post: "/jobs"
+           body: "*"
+        };
+    }
+
+    rpc GetJobList(JobFilter) returns (Jobs) {
+        option (google.api.http) = {
+           post: "/jobs"
+           body: "*"
+        };
+    }
+
+    rpc UpdateJob(Job) returns (Job) {
+        option (google.api.http) = {
+           put: "/jobs/{id}"
            body: "*"
         };
     }
 
     rpc DeleteJob() returns (google.protobuf.Empty) {
         option (google.api.http) = {
-           put: "/"
+           delete: "/jobs/{id}"
+        };
+    }
+
+    rpc SuspendJob(JobID) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+           put: "/jobs/{id}/_suspend"
            body: "*"
         };
     }
 
-    rpc SuspendJob() returns (google.protobuf.Empty) {
+    rpc UnSuspendJob(JobID) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-           put: "/"
+           put: "/jobs/{id}/_unsuspend"
            body: "*"
         };
     }
 
-    rpc UnSuspendJob() returns (google.protobuf.Empty) {
+    rpc CancleJob(JobID) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-           put: "/"
+            put: "/jobs/{id}/_cancle"
            body: "*"
         };
     }
-    
-    rpc CancleJob() returns (google.protobuf.Empty) {
-        option (google.api.http) = {
-           put: "/"
-           body: "*"
-        };
-    }
+}
+
+message JobID {
+    string id = 1;
+}
+
+message JobFilter {
+    int64 limit = 1;
+    int64 offset = 2;
+    string sort = 3;
+    string name = 4;
+    Status status = 5;
+    google.protobuf.Timestamp creationDate = 6;
+    google.protobuf.Timestamp changeDate = 7;
 }
 
 message Job {
