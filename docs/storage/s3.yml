@@ -1,0 +1,11 @@
+apiVersion: alpha/v1
+kind: Storage
+metadata:
+  name: s3
+  namespace: default
+spec:
+  - name: Backup
+    type: s3
+    path: https://somes3bucket
+    Access_key_ID: {someKeyID}
+    Secret_access_key: {someSecret}

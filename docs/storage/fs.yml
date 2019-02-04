@@ -1,0 +1,9 @@
+apiVersion: alpha/v1
+kind: Storage
+metadata:
+  name: fs
+  namespace: default
+spec:
+  - name: Backup
+    type: fs
+    path: /someDir/

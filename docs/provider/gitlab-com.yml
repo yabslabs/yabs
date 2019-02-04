@@ -1,0 +1,10 @@
+apiVersion: alpha/v1
+kind: Provider
+metadata:
+  name: gitlab.com
+  namespace: default
+spec: 
+  image: yabslabs/provider/gitlab.com
+  spec:
+    GIT_ACCESS_TOKEN: {someAcccessToken}
+    GIT_USERNAME: {someUsername}
