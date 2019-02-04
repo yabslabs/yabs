@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+
+package yabs.runner.api.v1;
+
+option go_package = "API";
+
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+    info: {
+        title: "yabs runner";
+        version: "2.0";
+        contact: {
+            url: "https://github.com/yabslabs/yabs"
+        };
+    };
+
+    schemes: HTTPS;
+
+    consumes: "application/json";
+    consumes: "application/grpc";
+
+    produces: "application/json";
+    produces: "application/grpc";
+};
+
+service RunnerService {
+    rpc RegisterRunner(Runner) returns (Runner) {
+        option (google.api.http) = {
+           post: "/runner"
+           body: "*"
+        };
+    }
+
+    rpc ListRunners(RunnerFilter) returns (Runners) {
+        option (google.api.http) = {
+           post: "/runner"
+           body: "*"
+        };
+    }
+
+    rpc DeleteRunner(RunnerID) returns (RunnerID) {
+        option (google.api.http) = {
+           delete: "/runner/{id}"
+           body: "*"
+        };
+    }
+
+    rpc DisableRunner(RunnerID) returns (RunnerID) {
+        option (google.api.http) = {
+           put: "/runner/{id}/_disable"
+           body: "*"
+        };
+    }
+
+    // The Runner needs to send his token to the health endpoint, this happens by using the authorization header 
+    // This endpoint is important to verify if the runners can communicate with the API or if a job need rescheduling
+    rpc HealthCheckRunner(Runner) returns (google.rpc.Status) {
+        option (google.api.http) = {
+           post: "/runner/healthz"
+           body: "*"
+        };
+    }
+}
+
+message RunnerID {
+    string id = 1;
+}
+
+message RunnerFilter {
+    int64 limit = 1;
+    int64 offset = 2;
+    string sort = 3;
+    string name = 4;
+    Status status = 5;
+    google.protobuf.Timestamp creationDate = 6;
+    google.protobuf.Timestamp changeDate = 7;
+}
+
+message Runner {
+    uint64 Runnerid = 1; 
+    string name = 2; 
+    Status status = 3;
+}
+
+message Runners {
+    repeated Runner runners = 1;
+}
+
+enum Status {
+    UNKNOWN = 0;
+    CREATED = 1;
+    PENDING = 2;
+    RUNNING = 3;
+    FAILED = 4;
+    SUCCEEDED = 5;
+    CANCELED = 6;
+    SKIPPED = 7;
+    STUCK = 8;
+    RETRIED = 9;
+    PAUSED = 10;
+    SUSPENDED = 11;
+}
