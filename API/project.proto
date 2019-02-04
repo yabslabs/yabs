@@ -30,4 +30,14 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 };
 
 service ProjectService {
+    
+    rpc ListProjectRunners(ProjectID) returns (Runners) {
+        option (google.api.http) = {
+           get: "/projects/{id}/runners"
+        };
+    }
+}
+
+message ProjectID {
+    string id = 1;
 }
