@@ -39,8 +39,7 @@ service RunnerService {
 
     rpc ListRunners(RunnerFilter) returns (Runners) {
         option (google.api.http) = {
-           post: "/runner"
-           body: "*"
+           get: "/runner"
         };
     }
 
@@ -51,10 +50,28 @@ service RunnerService {
         };
     }
 
-    rpc DisableRunner(RunnerID) returns (RunnerID) {
+    rpc SupendRunner(RunnerID) returns (RunnerID) {
         option (google.api.http) = {
-           put: "/runner/{id}/_disable"
+           put: "/runner/{id}/_suspend"
            body: "*"
+        };
+    }
+
+    rpc ListRunnerJobs(RunnerID) returns (Jobs) {
+        option (google.api.http) = {
+           get: "/runner/{id}/jobs"
+        };
+    }    
+
+    rpc ListRunnerProjects(RunnerID) returns (Projects) {
+        option (google.api.http) = {
+           get: "/runner/{id}/projects"
+        };
+    }    
+
+    rpc ListRunnerGroups(RunnerID) returns (Groups) {
+        option (google.api.http) = {
+           get: "/runner/{id}/groups"
         };
     }
 
@@ -80,29 +97,35 @@ message RunnerFilter {
     Status status = 5;
     google.protobuf.Timestamp creationDate = 6;
     google.protobuf.Timestamp changeDate = 7;
+    RunnerType runnertype = 8;
 }
 
 message Runner {
-    uint64 Runnerid = 1; 
+    uint64 runnerid = 1; 
     string name = 2; 
     Status status = 3;
+    RunnerType runnertype = 4;
+    string descritpion = 5;
+    bool active = 6;
+    string ipaddress = 7;
 }
 
 message Runners {
     repeated Runner runners = 1;
 }
 
+// This defines on which level a runner ist registered
+enum RunnerType {
+    UNKNOWN = 0;
+    INSTACE = 1;
+    GROUP = 2;
+    PROJECT = 3;
+}
+
 enum Status {
     UNKNOWN = 0;
-    CREATED = 1;
-    PENDING = 2;
-    RUNNING = 3;
-    FAILED = 4;
-    SUCCEEDED = 5;
-    CANCELED = 6;
-    SKIPPED = 7;
-    STUCK = 8;
-    RETRIED = 9;
-    PAUSED = 10;
-    SUSPENDED = 11;
+    ACTIVE = 1;
+    PAUSED = 2;
+    ONLINE = 3;
+    OFFLINE = 4;
 }
