@@ -6,5 +6,4 @@ metadata:
 spec: 
   image: yabslabs/provider/gitlab.com
   spec:
-    GIT_ACCESS_TOKEN: {someAcccessToken}
-    GIT_USERNAME: {someUsername}
+    PRIVATE-TOKEN: {your_access_token}

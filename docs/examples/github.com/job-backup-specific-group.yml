@@ -1,7 +1,7 @@
 apiVersion: alpha/v1
 kind: CronJob
 metadata:
-  name: github-backup-all
+  name: github-backup-specific
   namespace: default
 spec:
   schedule:
@@ -13,12 +13,19 @@ spec:
   stages:
     - backup
     - upload
-  task 1:
-    stage: backup
-    source: {backupProvider}
-    command: ["export"]
-    args: ["groupName"]
-  task 2:
-   stage: upload
-    storage: {storageAsDefined}
-    taskGroup: A
+  tasks:
+    - task 1:
+      stage: backup
+      provider: 
+        - name: github.com
+          config:
+            repos:
+              - orgName/projectName
+            orgs:
+              - orgName
+                exclude:
+                  - orgName/projectName
+    - task 2:
+      stage: upload
+      storage: {storageAsDefined}
+      taskGroup: A
