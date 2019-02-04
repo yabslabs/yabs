@@ -1,0 +1,22 @@
+apiVersion: alpha/v1
+kind: CronJob
+metadata:
+  name: github-backup-all
+  namespace: default
+spec:
+  schedule:
+    - "@hourly"
+  reSchedulePolicy:
+  runner:
+    selector:
+      name: my-project-runner
+  stages:
+    - backup
+    - upload
+  task 1:
+    stage: backup
+    source: {backupProvider}
+  task 2:
+   stage: upload
+    storage: {storageAsDefined}
+    taskGroup: A
