@@ -108,6 +108,7 @@ message Runner {
     string descritpion = 5;
     bool active = 6;
     string ipaddress = 7;
+    bool isshared = 8;
 }
 
 message Runners {
