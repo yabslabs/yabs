@@ -5,8 +5,7 @@ The `provider` defines all specific information for a certain source, for exampl
 ## metadata
 
 The metdata field is constructed in the same way as it is with `kubernetes`.
-Under normal usage minimaly need a `name` and a `namespace` (enviroment).
-If no `namespace` is set we default to `default`.
+Under normal usage minimaly need a `name`.
 
 ## spec
 
@@ -18,7 +17,6 @@ apiVersion: alpha/v1
 kind: Provider
 metadata:
   name: github.com
-  namespace: staging
 spec:
   image: yabslabs/provider/github.com
   env:

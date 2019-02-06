@@ -2,7 +2,6 @@ apiVersion: alpha/v1
 kind: CronJob
 metadata:
   name: github.com daily backup
-  namespace: staging
 spec:
   schedule:
     - "@hourly"

@@ -2,7 +2,6 @@ apiVersion: alpha/v1
 kind: Job
 metadata:
   name: github.com restore prod to test
-  namespace: staging
 spec:
   restartPolicy: Never
   backoffLimit: 5

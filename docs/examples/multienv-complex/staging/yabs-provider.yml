@@ -2,7 +2,6 @@ apiVersion: alpha/v1
 kind: Provider
 metadata:
   name: github.com
-  namespace: staging
 spec: 
   image: yabslabs/provider/github.com
   spec:

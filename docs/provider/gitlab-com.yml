@@ -2,7 +2,6 @@ apiVersion: alpha/v1
 kind: Provider
 metadata:
   name: gitlab.com
-  namespace: default
 spec: 
   image: yabslabs/provider/gitlab.com
   spec:

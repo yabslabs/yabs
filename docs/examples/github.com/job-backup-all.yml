@@ -2,7 +2,6 @@ apiVersion: alpha/v1
 kind: CronJob
 metadata:
   name: github-backup-all
-  namespace: default
 spec:
   schedule:
     - "@hourly"

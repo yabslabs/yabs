@@ -4,5 +4,5 @@ metadata:
   name: fs
 spec:
   - name: Backup
-    type: fs
-    path: /someDir/
+    type: nfs
+    path: nfs://serverName/someDir/

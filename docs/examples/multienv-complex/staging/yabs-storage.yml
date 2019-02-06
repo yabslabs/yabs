@@ -2,7 +2,6 @@ apiVersion: alpha/v1
 kind: Storage
 metadata:
   name: github.com storage
-  namespace: staging
 spec:
   - name: Cache
     type: fs
