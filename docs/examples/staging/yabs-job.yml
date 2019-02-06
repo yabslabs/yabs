@@ -40,6 +40,6 @@ spec:
     - task 4:
       stage: upload
       provider:
-        - name: storage
+        - name: upload
       storage: 
         - name: backup
