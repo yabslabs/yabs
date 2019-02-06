@@ -12,10 +12,11 @@ spec:
   stages:
     - backup
     - upload
-  task 1:
-    stage: backup
-    source: {backupProvider}
-  task 2:
-   stage: upload
-    storage: {storageAsDefined}
-    taskGroup: A
+  tasks:
+    - task 1:
+      stage: backup
+      source: {backupProvider}
+    - task 2:
+      stage: upload
+      storage: {storageAsDefined}
+      taskGroup: A
