@@ -30,50 +30,79 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 };
 
 service StorageService {
-    rpc CreateStorage(Storage) returns (Storage) {
+    rpc AddStorage(AddStorageRequest) returns (AddStorageResponse) {
         option (google.api.http) = {
            post: "/storages"
            body: "*"
         };
     }
 
-    rpc GetStorageById(StorageID) returns (Storage) {
+    rpc GetStorageById(GetStorageByIdRequest) returns (GetStorageByIdResponse) {
         option (google.api.http) = {
            get: "/storages/{id}"
         };
     }
 
-    rpc GetStorageList(StorageFilter) returns (Storages) {
+    rpc GetStorage(FilterStorageRequest) returns (FilterStorageResponse) {
         option (google.api.http) = {
            get: "/storages"
         };
     }
 
-    rpc UpdateStorage(Storage) returns (Storage) {
+    rpc UpdateStorage(UpdateStorageRequest) returns (UpdateStorageResponse) {
         option (google.api.http) = {
            put: "/storages/{id}"
            body: "*"
         };
     }
 
-    rpc DeleteStorage(StorageID) returns (google.protobuf.Empty) {
+    rpc DeleteStorage(DeleteStorageRequest) returns (DeleteStorageResponse) {
         option (google.api.http) = {
            delete: "/storages/{id}"
         };
     }
 }
 
-message StorageID {
-    string id = 1;
+message AddStorageRequest {
+    message StorageMessage {
+        uint64 id = 1;
+        string name = 2;
+    }
+
+    // Storage to add
+    StorageMessage storage = 1;
 }
 
-message StorageFilter {
-    int64 limit = 1;
-    int64 offset = 2;
-    string sort = 3;
-    string name = 4;
-    google.protobuf.Timestamp creationDate = 6;
-    google.protobuf.Timestamp changeDate = 7;
+message AddStorageResponse {
+    uint64 id = 1;
+    string name = 2;
+}
+
+
+message GetStorageByIdRequest {
+    // ID of storage to fetch
+    uint64 id = 1;
+}
+
+message GetStorageByIdResponse {
+    uint64 id = 1;
+    string name = 2;
+}
+
+message UpdateStorageRequest{
+    // TODO define
+}
+
+message UpdateStorageResponse{
+    // TODO define
+}
+
+message DeleteStorageRequest {
+    uint64 id = 1;
+}
+
+message DeleteStorageResponse {
+    // TODO define
 }
 
 message Storage {
@@ -84,3 +113,22 @@ message Storage {
 message Storages {
     repeated Storage storage = 1;
 }
+
+message StorageID {
+    uint64 id = 1;
+}
+
+message FilterStorageRequest {
+    int64 limit = 1;
+    int64 offset = 2;
+    string sort = 3;
+    string name = 4;
+    google.protobuf.Timestamp creationDate = 6;
+    google.protobuf.Timestamp changeDate = 7;
+}
+
+message FilterStorageResponse {
+    // TODO define
+}
+
+
