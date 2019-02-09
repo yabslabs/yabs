@@ -36,6 +36,12 @@ service StorageService {
            body: "*"
         };
     }
+    
+    rpc GetStorage(GetStorageRequest) returns (GetStorageResponse) {
+        option (google.api.http) = {
+           get: "/storages"
+        };
+    }
 
     rpc GetStorageById(GetStorageByIdRequest) returns (GetStorageByIdResponse) {
         option (google.api.http) = {
@@ -43,9 +49,9 @@ service StorageService {
         };
     }
 
-    rpc GetStorage(FilterStorageRequest) returns (FilterStorageResponse) {
+    rpc FilterStorage(FilterStorageRequest) returns (FilterStorageResponse) {
         option (google.api.http) = {
-           get: "/storages"
+           get: "/storages/_search"
         };
     }
 
@@ -78,6 +84,13 @@ message AddStorageResponse {
     string name = 2;
 }
 
+message GetStorageRequest {
+    // TODO define
+}
+
+message GetStorageResponse {
+    // TODO define
+}
 
 message GetStorageByIdRequest {
     // ID of storage to fetch
