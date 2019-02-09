@@ -4,5 +4,5 @@ metadata:
   name: gitlab.com
 spec: 
   image: yabslabs/provider/gitlab.com
-  spec:
+  config:
     PRIVATE-TOKEN: {your_access_token}

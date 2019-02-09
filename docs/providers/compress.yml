@@ -1,0 +1,8 @@
+apiVersion: alpha/v1
+kind: Provider
+metadata:
+  name: compression
+spec: 
+  image: yabslabs/provider/compression
+  config:
+    
