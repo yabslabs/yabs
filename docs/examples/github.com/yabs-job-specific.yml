@@ -28,7 +28,7 @@ spec:
     - task 2:
       stage: compress
       provider:
-        - name: tar
+        - name: compression
           config:
             format: tar
       storage: 
@@ -36,7 +36,7 @@ spec:
     - task 3:
       stage: encrypt
       provider: 
-        - name: aes
+        - name: encryption
           config:
             encryptionkey: <someRandomKey>
       storage: 
