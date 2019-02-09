@@ -11,21 +11,12 @@ Under normal usage minimaly need a `name`.
 apiVersion: alpha/v1
 kind: Storage
 metadata:
-  name: github.com storage
+  name: backup
 spec:
-  - name: Cache
-    type: fs
-    path: cache/
-  - name: Backup
-    type: s3
+  - type: s3
     path: https://somes3bucket
     Access_key_ID: {someKeyID}
     Secret_access_key: {someSecret}
-  - name: Archive
-    type: s3
-    path: https://somes3bucket
-    Access_key_ID: {someKeyID}
-    Secret_access_key: {someSecret} 
 ```
 
 ### Storage Types

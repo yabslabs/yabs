@@ -3,6 +3,5 @@ kind: Storage
 metadata:
   name: fs
 spec:
-  - name: Backup
-    type: fs
+  - type: fs
     path: /someDir/

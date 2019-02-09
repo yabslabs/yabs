@@ -3,6 +3,5 @@ kind: Storage
 metadata:
   name: fs
 spec:
-  - name: Backup
-    type: nfs
+  - type: nfs
     path: nfs://serverName/someDir/

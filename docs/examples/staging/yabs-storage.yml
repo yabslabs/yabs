@@ -3,8 +3,7 @@ kind: Storage
 metadata:
   name: cache
 spec:
-  - name: Cache
-    type: fs
+  - type: fs
     path: cache/
 
 ---
@@ -14,9 +13,8 @@ kind: Storage
 metadata:
   name: backup
 spec:
-  - name: backup
-    type: s3
+  - type: s3
     path: https://somes3server
     bucket: somebucket
-    key:
-    key:
+    Access_key_ID: {someKeyID}
+    Secret_access_key: {someSecret}

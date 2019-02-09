@@ -2,12 +2,11 @@ apiVersion: alpha/v1
 kind: Provider
 metadata:
   name: github.com
-spec: 
+spec:
   image: yabslabs/provider/github.com
-  spec:
-    GIT_ACCESS_TOKEN: {someAcccessToken}
-    GIT_USERNAME: {someUsername}
-
----
-
-
+  env:
+    - name: GIT_ACCESS_TOKEN
+      value: {someAcccessToken}
+    - name: GIT_USERNAME
+      value: {someUsername}
+      
