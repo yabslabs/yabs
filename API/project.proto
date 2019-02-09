@@ -30,7 +30,37 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 };
 
 service ProjectService {
-    
+    rpc CreateProject(Project) returns (Project) {
+        option (google.api.http) = {
+        post: "/projects"
+        body: "*"
+        };
+    }
+
+    rpc GetProjectById(ProjectID) returns (Project) {
+        option (google.api.http) = {
+        get: "/projects/{id}"
+        };
+    }
+
+    rpc GetProjectList(ProjectFilter) returns (Project) {
+        option (google.api.http) = {
+        get: "/groups"
+        };
+    }
+
+    rpc UpdateProject(Project) returns (Project) {
+        option (google.api.http) = {
+        put: "/projects/{id}"
+        body: "*"
+        };
+    }
+
+    rpc DeleteProject(ProjectID) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+        delete: "/projects/{id}"
+        };
+    }
     rpc ListProjectRunners(ProjectID) returns (Runners) {
         option (google.api.http) = {
            get: "/projects/{id}/runners"
@@ -40,4 +70,22 @@ service ProjectService {
 
 message ProjectID {
     string id = 1;
+}
+
+message ProjectFilter {
+    int64 limit = 1;
+    int64 offset = 2;
+    string sort = 3;
+    string name = 4;
+    google.protobuf.Timestamp creationDate = 6;
+    google.protobuf.Timestamp changeDate = 7;
+}
+
+message Project {
+    uint64 groupid = 1; 
+    string name = 2; 
+}
+
+message Projects {
+    repeated Project project = 1;
 }

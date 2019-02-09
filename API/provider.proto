@@ -30,4 +30,57 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 };
 
 service ProviderService {
+    rpc CreateProvider(Provider) returns (Provider) {
+        option (google.api.http) = {
+           post: "/providers"
+           body: "*"
+        };
+    }
+
+    rpc GetProviderById(ProviderID) returns (Provider) {
+        option (google.api.http) = {
+           get: "/providers/{id}"
+        };
+    }
+
+    rpc GetProviderList(ProviderFilter) returns (Providers) {
+        option (google.api.http) = {
+           get: "/providers"
+        };
+    }
+
+    rpc UpdateProvider(Provider) returns (Provider) {
+        option (google.api.http) = {
+           put: "/providers/{id}"
+           body: "*"
+        };
+    }
+
+    rpc DeleteProvider(ProviderID) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+           delete: "/providers/{id}"
+        };
+    }
+}
+
+message ProviderID {
+    string id = 1;
+}
+
+message ProviderFilter {
+    int64 limit = 1;
+    int64 offset = 2;
+    string sort = 3;
+    string name = 4;
+    google.protobuf.Timestamp creationDate = 6;
+    google.protobuf.Timestamp changeDate = 7;
+}
+
+message Provider {
+    uint64 providerid = 1; 
+    string name = 2; 
+}
+
+message Providers {
+    repeated Provider provider = 1;
 }

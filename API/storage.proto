@@ -30,4 +30,57 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 };
 
 service StorageService {
+    rpc CreateStorage(Storage) returns (Storage) {
+        option (google.api.http) = {
+           post: "/storages"
+           body: "*"
+        };
+    }
+
+    rpc GetStorageById(StorageID) returns (Storage) {
+        option (google.api.http) = {
+           get: "/storages/{id}"
+        };
+    }
+
+    rpc GetStorageList(StorageFilter) returns (Storages) {
+        option (google.api.http) = {
+           get: "/storages"
+        };
+    }
+
+    rpc UpdateStorage(Storage) returns (Storage) {
+        option (google.api.http) = {
+           put: "/storages/{id}"
+           body: "*"
+        };
+    }
+
+    rpc DeleteStorage(StorageID) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+           delete: "/storages/{id}"
+        };
+    }
+}
+
+message StorageID {
+    string id = 1;
+}
+
+message StorageFilter {
+    int64 limit = 1;
+    int64 offset = 2;
+    string sort = 3;
+    string name = 4;
+    google.protobuf.Timestamp creationDate = 6;
+    google.protobuf.Timestamp changeDate = 7;
+}
+
+message Storage {
+    uint64 providerid = 1; 
+    string name = 2; 
+}
+
+message Storages {
+    repeated Storage storage = 1;
 }

@@ -30,4 +30,57 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 };
 
 service GroupService {
+    rpc CreateGroup(Group) returns (Group) {
+        option (google.api.http) = {
+           post: "/groups"
+           body: "*"
+        };
+    }
+
+    rpc GetGroupById(GroupID) returns (Group) {
+        option (google.api.http) = {
+           get: "/groups/{id}"
+        };
+    }
+
+    rpc GetGroupsList(GroupFilter) returns (Groups) {
+        option (google.api.http) = {
+           get: "/groups"
+        };
+    }
+
+    rpc UpdateGroup(Group) returns (Group) {
+        option (google.api.http) = {
+           put: "/Groups/{id}"
+           body: "*"
+        };
+    }
+
+    rpc DeleteGroup(GroupID) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+           delete: "/groups/{id}"
+        };
+    }
+}
+
+message GroupID {
+    string id = 1;
+}
+
+message GroupFilter {
+    int64 limit = 1;
+    int64 offset = 2;
+    string sort = 3;
+    string name = 4;
+    google.protobuf.Timestamp creationDate = 6;
+    google.protobuf.Timestamp changeDate = 7;
+}
+
+message Group {
+    uint64 groupid = 1; 
+    string name = 2; 
+}
+
+message Groups {
+    repeated Group groups = 1;
 }
