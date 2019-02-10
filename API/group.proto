@@ -30,57 +30,117 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 };
 
 service GroupService {
-    rpc CreateGroup(Group) returns (Group) {
+    rpc AddGroup(AddGroupRequest) returns (AddGroupResponse) {
         option (google.api.http) = {
            post: "/groups"
            body: "*"
         };
     }
 
-    rpc GetGroupById(GroupID) returns (Group) {
-        option (google.api.http) = {
-           get: "/groups/{id}"
-        };
-    }
-
-    rpc GetGroupsList(GroupFilter) returns (Groups) {
+    rpc GetGroup(GetGroupRequest) returns (GetGroupResponse) {
         option (google.api.http) = {
            get: "/groups"
         };
     }
 
-    rpc UpdateGroup(Group) returns (Group) {
+    rpc GetGroupById(GetGroupByIdRequest) returns (GetGroupByIdResponse) {
         option (google.api.http) = {
-           put: "/Groups/{id}"
+           get: "/groups/{id}"
+        };
+    }
+
+    rpc FilterGroup(FilterGroupRequest) returns (FilterGroupResponse) {
+        option (google.api.http) = {
+           post: "/groups/_search"
            body: "*"
         };
     }
 
-    rpc DeleteGroup(GroupID) returns (google.protobuf.Empty) {
+    rpc UpdateGroup(UpdateGroupRequest) returns (UpdateGroupResponse) {
+        option (google.api.http) = {
+           put: "/groups/{id}"
+           body: "*"
+        };
+    }
+
+    rpc DeleteGroup(DeleteGroupRequest) returns (DeleteGroupResponse) {
         option (google.api.http) = {
            delete: "/groups/{id}"
         };
     }
 }
 
-message GroupID {
-    string id = 1;
+message AddgroupRequest {
+    repeated Group group = 1;
 }
 
-message GroupFilter {
-    int64 limit = 1;
-    int64 offset = 2;
-    string sort = 3;
-    string name = 4;
-    google.protobuf.Timestamp creationDate = 6;
-    google.protobuf.Timestamp changeDate = 7;
+message AddGroupResponse {
+    repeated Group group = 1;
+}
+
+message GetGroupRequest {
+    int32 limit = 1;
+    int32 after = 2;
+}
+
+message GetGroupResponse {
+    repeated Group group = 1;
+}
+
+message GetGroupByIdRequest {
+    uint64 id = 1;
+    int32 limit = 2;
+    int32 after = 3;
+}
+
+message GetGroupByIdResponse {
+    Group group = 1;
+}
+
+message UpdateGroupRequest{
+    uint64 id = 1;
+    Group group = 2;
+}
+
+message UpdateGroupResponse{
+    Group group = 1;
+}
+
+message DeleteGroupRequest {
+    uint64 id = 1;
+}
+
+message DeleteGroupResponse {
+    google.rpc.Status success = 1;
+}
+
+message FilterGroupRequest {
+    Filter filter = 1;
+}
+
+message FilterGroupResponse {
+    repeated Group group = 1;
+    int32 results = 2;
 }
 
 message Group {
-    uint64 groupid = 1; 
-    string name = 2; 
+    Header header = 1;
+    Metadata metadata = 2;
+    uint64 id = 3;
+    GroupConfig GroupConfig = 4;
+    //define additional fields
 }
 
 message Groups {
-    repeated Group groups = 1;
+    repeated Group group = 1;
+}
+
+message GroupeConfig{
+    GroupType GroupType = 1;
+    //TODO ACL comes here
+}
+
+enum GroupType {
+    UNKOWN = 0;
+    //TODO TBD
 }
