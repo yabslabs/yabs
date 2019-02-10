@@ -125,11 +125,11 @@ message FilterStorageRequest {
 
 message FilterStorageResponse {
     repeated Storage storage = 1;
-    int32 results 2;
+    int32 results = 2;
 }
 
 message Storage {
-    uint64 storageid = 1; 
+    uint64 id = 1; 
     string name = 2; 
     //define additional fields
 }
