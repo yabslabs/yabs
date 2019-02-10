@@ -51,7 +51,8 @@ service StorageService {
 
     rpc FilterStorage(FilterStorageRequest) returns (FilterStorageResponse) {
         option (google.api.http) = {
-           get: "/storages/_search"
+           post: "/storages/_search"
+           body: "*"
         };
     }
 
@@ -70,44 +71,39 @@ service StorageService {
 }
 
 message AddStorageRequest {
-    message StorageMessage {
-        uint64 id = 1;
-        string name = 2;
-    }
-
-    // Storage to add
-    StorageMessage storage = 1;
+    repeated Storage storage = 1;
 }
 
 message AddStorageResponse {
-    uint64 id = 1;
-    string name = 2;
+    repeated Storage storage = 1;
 }
 
 message GetStorageRequest {
-    // TODO define
+    int32 limit = 1;
+    int32 after = 2;
 }
 
 message GetStorageResponse {
-    // TODO define
+    repeated Storage storage = 1;
 }
 
 message GetStorageByIdRequest {
-    // ID of storage to fetch
     uint64 id = 1;
+    int32 limit = 2;
+    int32 after = 3;
 }
 
 message GetStorageByIdResponse {
-    uint64 id = 1;
-    string name = 2;
+    Storage storage = 1;
 }
 
 message UpdateStorageRequest{
-    // TODO define
+    uint64 id = 1;
+    Storage storage = 2;
 }
 
 message UpdateStorageResponse{
-    // TODO define
+    Storage storage = 2;
 }
 
 message DeleteStorageRequest {
@@ -115,25 +111,12 @@ message DeleteStorageRequest {
 }
 
 message DeleteStorageResponse {
-    // TODO define
-}
-
-message Storage {
-    uint64 providerid = 1; 
-    string name = 2; 
-}
-
-message Storages {
-    repeated Storage storage = 1;
-}
-
-message StorageID {
-    uint64 id = 1;
+    google.rpc.Status success = 1;
 }
 
 message FilterStorageRequest {
     int64 limit = 1;
-    int64 offset = 2;
+    int64 after = 2;
     string sort = 3;
     string name = 4;
     google.protobuf.Timestamp creationDate = 6;
@@ -141,7 +124,17 @@ message FilterStorageRequest {
 }
 
 message FilterStorageResponse {
-    // TODO define
+    repeated Storage storage = 1;
+    int32 results 2;
 }
 
+message Storage {
+    uint64 storageid = 1; 
+    string name = 2; 
+    //define additional fields
+}
+
+message Storages {
+    repeated Storage storage = 1;
+}
 
