@@ -30,82 +30,179 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 };
 
 service JobService {
-    rpc CreateJob(Job) returns (Job) {
+    rpc AddJob(AddJobRequest) returns (AddJobResponse) {
         option (google.api.http) = {
            post: "/jobs"
            body: "*"
         };
     }
 
-    rpc GetJobById(JobID) returns (Job) {
-        option (google.api.http) = {
-           get: "/jobs/{id}"
-        };
-    }
-
-    rpc GetJobList(JobFilter) returns (Jobs) {
+    rpc GetJob(GetJobRequest) returns (GetJobResponse) {
         option (google.api.http) = {
            get: "/jobs"
         };
     }
 
-    rpc UpdateJob(Job) returns (Job) {
+    rpc GetJobById(GetJobByIdRequest) returns (GetJobByIdResponse) {
+        option (google.api.http) = {
+           get: "/jobs/{id}"
+        };
+    }
+    
+    rpc FilterJob(FilterJobRequest) returns (FilterJobResponse) {
+        option (google.api.http) = {
+           post: "/jobs/_search"
+           body: "*"
+        };
+    }
+
+    rpc UpdateJob(UpdateJobRequest) returns (UpdateJobResponse) {
         option (google.api.http) = {
            put: "/jobs/{id}"
            body: "*"
         };
     }
 
-    rpc DeleteJob(JobID) returns (google.protobuf.Empty) {
+    rpc DeleteJob(DeleteJobRequest) returns (DeleteJobResponse) {
         option (google.api.http) = {
            delete: "/jobs/{id}"
         };
     }
 
-    rpc SuspendJob(JobID) returns (google.protobuf.Empty) {
+    rpc SuspendJob(SuspendJobRequest) returns (SuspendJobResponse) {
         option (google.api.http) = {
-           put: "/jobs/{id}/_suspend"
+           post: "/jobs/{id}/_suspend"
            body: "*"
         };
     }
 
-    rpc UnSuspendJob(JobID) returns (google.protobuf.Empty) {
+    rpc UnSuspendJob(UnSuspendJobRequest) returns (UnSuspendJobResponse) {
         option (google.api.http) = {
-           put: "/jobs/{id}/_unsuspend"
+           post: "/jobs/{id}/_unsuspend"
            body: "*"
         };
     }
 
-    rpc CancleJob(JobID) returns (google.protobuf.Empty) {
+    rpc StartJob(StartJobRequest) returns (StartJobResponse) {
         option (google.api.http) = {
-            put: "/jobs/{id}/_cancle"
-           body: "*"
+            post: "/jobs/{id}/_start"
+            body: "*"
+        };
+    }
+
+    rpc CancleJob(CancleJobRequest) returns (CancleJobResponse) {
+        option (google.api.http) = {
+            post: "/jobs/{id}/_cancle"
+            body: "*"
         };
     }
 }
 
-message JobID {
-    string id = 1;
+message AddJobRequest {
+    repeated Job job = 1;
 }
 
-message JobFilter {
-    int64 limit = 1;
-    int64 offset = 2;
-    string sort = 3;
-    string name = 4;
-    Status status = 5;
-    google.protobuf.Timestamp creationDate = 6;
-    google.protobuf.Timestamp changeDate = 7;
+message AddJobResponse {
+    repeated Job job = 1;
+}
+
+message GetJobRequest {
+    int32 limit = 1;
+    int32 after = 2;
+}
+
+message GetJobResponse {
+    repeated Job job = 1;
+}
+
+message GetJobByIdRequest {
+    uint64 id = 1;
+    int32 limit = 2;
+    int32 after = 3;
+}
+
+message GetJobByIdResponse {
+    Job job = 1;
+}
+
+message UpdateJobRequest{
+    uint64 id = 1;
+    Job job = 2;
+}
+
+message UpdateJobResponse{
+    Job job = 1;
+}
+
+message DeleteJobRequest {
+    uint64 id = 1;
+}
+
+message DeletejobResponse {
+    google.rpc.Status success = 1;
+}
+
+message FilterJobRequest {
+    Filter filter = 1;
+}
+
+message FilterJobResponse {
+    repeated Job job = 1;
+    int32 results = 2;
+}
+
+message SuspendJobRequest{
+    uint64 id = 1;
+}
+
+message SuspendJobResponse{
+    google.rpc.Status success = 1;
+}
+
+message UnSuspendJobRequest{
+    uint64 id = 1;
+}
+
+message UnSuspendJobResponse{
+    google.rpc.Status success = 1;
+}
+
+message StartJobRequest{
+    uint64 id = 1;
+}
+
+message StartJobResponse{
+    google.rpc.Status success = 1;
+}
+
+message CancleJobRequest{
+    uint64 id = 1;
+}
+message CancleJobResponse{
+    google.rpc.Status success = 1;
 }
 
 message Job {
-    uint64 jobid = 1; 
-    string name = 2; 
-    Status status = 3;
+    Header header = 1;
+    Metadata metadata = 2;
+    uint64 id = 3;
+    JobConfig JobConfig = 4;
+    Status status = 5;
 }
 
 message Jobs {
     repeated Job jobs = 1;
+}
+
+message JobConfig{
+    JobType JobType = 1;
+    //TODO TBD
+}
+
+enum JobType {
+    UNKNOWN = 0;
+    JOB = 1;
+    CRONJOB = 2;
 }
 
 enum Status {
