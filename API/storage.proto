@@ -103,7 +103,7 @@ message UpdateStorageRequest{
 }
 
 message UpdateStorageResponse{
-    Storage storage = 2;
+    Storage storage = 1;
 }
 
 message DeleteStorageRequest {
