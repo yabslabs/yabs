@@ -129,8 +129,10 @@ message FilterStorageResponse {
 }
 
 message Storage {
-    uint64 id = 1; 
-    string name = 2; 
+    Header header = 1;
+    Metadata metadata = 2;
+    uint64 id = 3;
+    StorageConfig StorageConfig = 4;
     //define additional fields
 }
 
@@ -138,3 +140,14 @@ message Storages {
     repeated Storage storage = 1;
 }
 
+message StorageConfig{
+    StoragetType storageType = 1;
+    string path = 2;
+}
+
+enum storageType {
+    UNKOWN = 0;
+    FS = 1;
+    NFS = 2;
+    S3 = 3;
+}
