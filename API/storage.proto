@@ -32,50 +32,64 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 service StorageService {
     rpc AddStorage(AddStorageRequest) returns (AddStorageResponse) {
         option (google.api.http) = {
-           post: "/storages"
-           body: "*"
+            post: "/storages"
+            body: "*"
         };
     }
     
     rpc GetStorage(GetStorageRequest) returns (GetStorageResponse) {
         option (google.api.http) = {
-           get: "/storages"
+            get: "/storages"
         };
     }
 
     rpc GetStorageById(GetStorageByIdRequest) returns (GetStorageByIdResponse) {
         option (google.api.http) = {
-           get: "/storages/{id}"
+            get: "/storages/{id}"
         };
     }
 
     rpc FilterStorage(FilterStorageRequest) returns (FilterStorageResponse) {
         option (google.api.http) = {
-           post: "/storages/_search"
-           body: "*"
+            post: "/storages/_search"
+            body: "*"
         };
     }
 
     rpc UpdateStorage(UpdateStorageRequest) returns (UpdateStorageResponse) {
         option (google.api.http) = {
-           put: "/storages/{id}"
-           body: "*"
+            put: "/storages/{id}"
+            body: "*"
         };
     }
 
     rpc DeleteStorage(DeleteStorageRequest) returns (DeleteStorageResponse) {
         option (google.api.http) = {
-           delete: "/storages/{id}"
+            delete: "/storages/{id}"
+        };
+    }
+
+    rpc SupendStorage(SupendStorageRequest) returns (SupendStorageResponse) {
+        option (google.api.http) = {
+            post: "/storages/{id}/_suspend"
+            body: "*"
+        };
+    }
+
+    rpc UnSupendStorage(UnSupendStorageRequest) returns (UnSupendStorageResponse) {
+        option (google.api.http) = {
+            post: "/storages/{id}/_unsuspend"
+            body: "*"
         };
     }
 }
 
 message AddStorageRequest {
-    repeated Storage storage = 1;
+    Storages storages = 1;
 }
 
 message AddStorageResponse {
-    repeated Storage storage = 1;
+    Storages storages = 1;
 }
 
 message GetStorageRequest {
@@ -84,13 +98,12 @@ message GetStorageRequest {
 }
 
 message GetStorageResponse {
-    repeated Storage storage = 1;
+    Storages storages = 1;
+    int32 results = 2;
 }
 
 message GetStorageByIdRequest {
     uint64 id = 1;
-    int32 limit = 2;
-    int32 after = 3;
 }
 
 message GetStorageByIdResponse {
@@ -114,12 +127,28 @@ message DeleteStorageResponse {
     google.rpc.Status success = 1;
 }
 
+message SupendStorageRequest {
+
+}
+
+message SupendStorageResponse {
+
+}
+
+message UnSupendStorageRequest {
+
+}
+
+message UnSupendStorageResponse {
+
+}
+
 message FilterStorageRequest {
     Filter filter = 1;
 }
 
 message FilterStorageResponse {
-    repeated Storage storage = 1;
+    Storages storages = 1;
     int32 results = 2;
 }
 

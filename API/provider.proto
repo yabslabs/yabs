@@ -30,55 +30,132 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 };
 
 service ProviderService {
-    rpc CreateProvider(Provider) returns (Provider) {
+    rpc AddProvider(AddProviderRequest) returns (AddProviderResponse) {
         option (google.api.http) = {
-           post: "/providers"
-           body: "*"
+            post: "/providers"
+            body: "*"
         };
     }
 
-    rpc GetProviderById(ProviderID) returns (Provider) {
+    rpc GetProvider(GetProviderRequest) returns (GetProviderResponse) {
         option (google.api.http) = {
-           get: "/providers/{id}"
+            get: "/providers"
         };
     }
 
-    rpc GetProviderList(ProviderFilter) returns (Providers) {
+    rpc GetProviderById(GetProviderByIdRequest) returns (GetProviderByIdResponse) {
         option (google.api.http) = {
-           get: "/providers"
+            get: "/providers/{id}"
         };
     }
 
-    rpc UpdateProvider(Provider) returns (Provider) {
+    rpc FilterProvider(FilterProviderRequest) returns (FilterProviderResponse) {
         option (google.api.http) = {
-           put: "/providers/{id}"
-           body: "*"
+            post: "/providers/_search"
+            body: "*"
         };
     }
 
-    rpc DeleteProvider(ProviderID) returns (google.protobuf.Empty) {
+    rpc UpdateProvider(UpdateProviderRequest) returns (UpdateProviderResponse) {
         option (google.api.http) = {
-           delete: "/providers/{id}"
+            put: "/providers/{id}"
+            body: "*"
+        };
+    }
+
+    rpc DeleteProvider(DeleteProviderRequest) returns (DeleteProviderResponse) {
+        option (google.api.http) = {
+            delete: "/providers/{id}"
+        };
+    }
+
+    rpc SupendProvider(SupendProviderRequest) returns (SupendProviderResponse) {
+        option (google.api.http) = {
+            post: "/providers/{id}/_suspend"
+            body: "*"
+        };
+    }
+
+    rpc UnSupendProvider(UnSupendProviderRequest) returns (UnSupendProviderResponse) {
+        option (google.api.http) = {
+            post: "/providers/{id}/_unsuspend"
+            body: "*"
         };
     }
 }
 
-message ProviderID {
-    string id = 1;
+message AddProviderRequest {
+    Providers providers = 1;
 }
 
-message ProviderFilter {
-    int64 limit = 1;
-    int64 offset = 2;
-    string sort = 3;
-    string name = 4;
-    google.protobuf.Timestamp creationDate = 6;
-    google.protobuf.Timestamp changeDate = 7;
+message AddProviderResponse {
+    Providers providers = 1;
+}
+
+message GetProviderRequest {
+    int32 limit = 1;
+    int32 after = 2;
+}
+
+message GetProviderResponse {
+    Providers providers = 1;
+    int32 results = 2;
+}
+
+message GetProviderByIdRequest {
+    uint64 id = 1;
+}
+
+message GetProviderByIdResponse {
+    Provider provider = 1;
+}
+
+message FilterProviderRequest {
+    Filter filter = 1;
+}
+
+message FilterProviderResponse {
+    Providers providers = 1;
+    int32 results = 2;
+}
+
+message UpdateProviderRequest {
+    uint64 id = 1;
+    Provider provider = 2;
+}
+
+message UpdateProviderResponse {
+    Provider provider = 1;
+}
+
+message DeleteProviderRequest {
+    uint64 id = 1;
+}
+
+message DeleteProviderResponse {
+    google.rpc.Status success = 1;
+}
+
+message SupendProviderRequest {
+    uint64 id = 1;
+}
+
+message SupendProviderResponse {
+    google.rpc.Status success = 1;
+}
+
+message UnSupendProviderRequest {
+    uint64 id = 1;
+}
+
+message UnSupendProviderResponse {
+    google.rpc.Status success = 1;
 }
 
 message Provider {
-    uint64 providerid = 1; 
+    uint64 id = 1; 
     string name = 2; 
+    //TODO TBD
 }
 
 message Providers {
