@@ -10,7 +10,18 @@ message metadata {
 
 message header {
     string apiVersion = 1;
-    string kind = 2;
+    kind kind = 2;
     google.protobuf.Timestamp creationDate = 3;
     google.protobuf.Timestamp changeDate = 4;
+}
+
+enum kind {
+    UNKNOWN = 0;
+    STORAGE = 1;
+    PROVIDER = 2;
+    JOB = 3;
+    CRONJOB = 4;
+    PROJECT = 5;
+    GROUP = 6;
+    RUNNER = 7;
 }
