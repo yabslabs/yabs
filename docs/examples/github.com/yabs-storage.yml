@@ -1,0 +1,20 @@
+apiVersion: alpha/v1
+kind: Storage
+metadata:
+  name: cache
+spec:
+  - type: fs
+    path: cache/
+
+---
+
+apiVersion: alpha/v1
+kind: Storage
+metadata:
+  name: backup
+spec:
+  - type: s3
+    path: https://somes3server
+    bucket: somebucket
+    Access_key_ID: {someKeyID}
+    Secret_access_key: {someSecret}

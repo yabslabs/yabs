@@ -1,0 +1,9 @@
+apiVersion: alpha/v1
+kind: Provider
+metadata:
+  name: gitlab.com
+spec: 
+  image: yabslabs/provider/gitlab.com
+  config:
+    - name: PRIVATE-TOKEN
+      value: {your_access_token}

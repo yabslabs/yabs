@@ -1,0 +1,158 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+
+package yabs.project.api.v1;
+
+option go_package = "API";
+
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+    info: {
+        title: "yabs project";
+        version: "2.0";
+        contact: {
+            url: "https://github.com/yabslabs/yabs"
+        };
+    };
+
+    schemes: HTTPS;
+
+    consumes: "application/json";
+    consumes: "application/grpc";
+
+    produces: "application/json";
+    produces: "application/grpc";
+};
+
+service ProjectService {
+    rpc AddProject(AddProjectRequest) returns (AddProjectResponse) {
+        option (google.api.http) = {
+            post: "/projects"
+            body: "*"
+        };
+    }
+    
+    rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {
+        option (google.api.http) = {
+            get: "/projects"
+        };
+    }
+
+    rpc GetProjectById(GetProjectsByIdRequest) returns (GetProjectsByIdResponse) {
+        option (google.api.http) = {
+            get: "/projects/{id}"
+        };
+    }
+
+    rpc FilterProject(FilterProjectRequest) returns (FilterProjectResponse) {
+        option (google.api.http) = {
+            post: "/projects/_search"
+            body: "*"
+        };
+    }
+
+    rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse) {
+        option (google.api.http) = {
+            put: "/projects/{id}"
+            body: "*"
+        };
+    }
+
+    rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse) {
+        option (google.api.http) = {
+            delete: "/projects/{id}"
+        };
+    }
+
+    rpc GetProjectRunners(GetProjectRunnersRequest) returns (GetProjectRunnersResponse) {
+        option (google.api.http) = {
+            get: "/projects/{id}/runners"
+        };
+    }
+}
+
+message AddProjectRequest{
+    Projects projects = 1;
+}
+
+message AddProjectResponse {
+    Projects projects = 1;
+}
+
+message GetProjectRequest {
+    int32 limit = 1;
+    int32 after = 2;
+}
+
+message GetProjectResponse {
+    Projects projects = 1;
+    int32 results = 2;
+}
+
+message GetProjectsByIdRequest {
+    uint64 id = 1;
+}
+
+message GetProjectsByIdResponse {
+    Project project = 1;
+}
+
+message FilterProjectRequest {
+    Filter filter = 1;
+    ProjectType projectType = 2;
+}
+
+message FilterProjectResponse {
+    Projects projects = 1;
+    int32 results = 2;
+}
+
+message UpdateProjectRequest {
+    uint64 id = 1;
+    Project project = 2;
+}
+
+message UpdateProjectResponse {
+    Project project = 1;
+}
+
+message DeleteProjectRequest {
+    uint64 id = 1;
+}
+
+message DeleteProjectResponse {
+    google.rpc.Status success = 1;
+}
+
+message GetProjectRunnersRequest {
+    uint64 id = 1;
+}
+
+message GetProjectRunnersResponse {
+    Runners runners = 1;
+    int32 results = 2;
+}
+
+message ProjectFilter {
+    Filter filter = 1;
+}
+
+message Project {
+    uint64 id = 1; 
+    string name = 2; 
+    //TODO
+}
+
+message Projects {
+    repeated Project project = 1;
+}
+
+enum ProjectType {
+    UNKOWN = 0;
+    //TODO TBD
+}

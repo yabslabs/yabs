@@ -1,0 +1,49 @@
+apiVersion: alpha/v1
+kind: CronJob
+metadata:
+  name: github.com daily backup
+spec:
+  schedule:
+    - "@daily"
+  reSchedulePolicy:
+  runner:
+    selector:
+      name: my-project-runner
+  stages:
+    - backup
+    - compress
+    - encrypt
+    - upload
+  tasks:
+    - task 1:
+      stage: backup
+      provider: 
+        - name: github.com
+          config:
+            repos:
+              - orgName/projectName
+              - orgName/projectName
+      storage: 
+        - name: cache
+    - task 2:
+      stage: compress
+      provider:
+        - name: compression
+          config:
+            format: tar
+      storage: 
+        - name: cache
+    - task 3:
+      stage: encrypt
+      provider: 
+        - name: encryption
+          config:
+            encryptionkey: <someRandomKey>
+      storage: 
+        - name: cache
+    - task 4:
+      stage: upload
+      provider:
+        - name: upload
+      storage: 
+        - name: backup

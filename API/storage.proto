@@ -1,0 +1,176 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+
+package yabs.storage.api.v1;
+
+option go_package = "API";
+
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+    info: {
+        title: "yabs storage";
+        version: "2.0";
+        contact: {
+            url: "https://github.com/yabslabs/yabs"
+        };
+    };
+
+    schemes: HTTPS;
+
+    consumes: "application/json";
+    consumes: "application/grpc";
+
+    produces: "application/json";
+    produces: "application/grpc";
+};
+
+service StorageService {
+    rpc AddStorage(AddStorageRequest) returns (AddStorageResponse) {
+        option (google.api.http) = {
+            post: "/storages"
+            body: "*"
+        };
+    }
+    
+    rpc GetStorage(GetStorageRequest) returns (GetStorageResponse) {
+        option (google.api.http) = {
+            get: "/storages"
+        };
+    }
+
+    rpc GetStorageById(GetStorageByIdRequest) returns (GetStorageByIdResponse) {
+        option (google.api.http) = {
+            get: "/storages/{id}"
+        };
+    }
+
+    rpc FilterStorage(FilterStorageRequest) returns (FilterStorageResponse) {
+        option (google.api.http) = {
+            post: "/storages/_search"
+            body: "*"
+        };
+    }
+
+    rpc UpdateStorage(UpdateStorageRequest) returns (UpdateStorageResponse) {
+        option (google.api.http) = {
+            put: "/storages/{id}"
+            body: "*"
+        };
+    }
+
+    rpc DeleteStorage(DeleteStorageRequest) returns (DeleteStorageResponse) {
+        option (google.api.http) = {
+            delete: "/storages/{id}"
+        };
+    }
+
+    rpc SupendStorage(SupendStorageRequest) returns (SupendStorageResponse) {
+        option (google.api.http) = {
+            post: "/storages/{id}/_suspend"
+            body: "*"
+        };
+    }
+
+    rpc UnSupendStorage(UnSupendStorageRequest) returns (UnSupendStorageResponse) {
+        option (google.api.http) = {
+            post: "/storages/{id}/_unsuspend"
+            body: "*"
+        };
+    }
+}
+
+message AddStorageRequest {
+    Storages storages = 1;
+}
+
+message AddStorageResponse {
+    Storages storages = 1;
+}
+
+message GetStorageRequest {
+    int32 limit = 1;
+    int32 after = 2;
+}
+
+message GetStorageResponse {
+    Storages storages = 1;
+    int32 results = 2;
+}
+
+message GetStorageByIdRequest {
+    uint64 id = 1;
+}
+
+message GetStorageByIdResponse {
+    Storage storage = 1;
+}
+
+message UpdateStorageRequest{
+    Storage storage = 1;
+}
+
+message UpdateStorageResponse{
+    Storage storage = 1;
+}
+
+message DeleteStorageRequest {
+    uint64 id = 1;
+}
+
+message DeleteStorageResponse {
+    google.rpc.Status success = 1;
+}
+
+message SupendStorageRequest {
+
+}
+
+message SupendStorageResponse {
+
+}
+
+message UnSupendStorageRequest {
+
+}
+
+message UnSupendStorageResponse {
+
+}
+
+message FilterStorageRequest {
+    Filter filter = 1;
+}
+
+message FilterStorageResponse {
+    Storages storages = 1;
+    int32 results = 2;
+}
+
+message Storage {
+    Header header = 1;
+    Metadata metadata = 2;
+    uint64 id = 3;
+    StorageConfig StorageConfig = 4;
+    //define additional fields
+}
+
+message Storages {
+    repeated Storage storage = 1;
+}
+
+message StorageConfig{
+    StoragetType storageType = 1;
+    string path = 2;
+}
+
+enum storageType {
+    UNKOWN = 0;
+    FS = 1;
+    NFS = 2;
+    S3 = 3;
+}

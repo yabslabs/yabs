@@ -1,0 +1,245 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+
+package yabs.runner.api.v1;
+
+option go_package = "API";
+
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+    info: {
+        title: "yabs runner";
+        version: "2.0";
+        contact: {
+            url: "https://github.com/yabslabs/yabs"
+        };
+    };
+
+    schemes: HTTPS;
+
+    consumes: "application/json";
+    consumes: "application/grpc";
+
+    produces: "application/json";
+    produces: "application/grpc";
+};
+
+service RunnerService {
+    //AddRunner aka RegisterRunner
+    rpc AddRunner(AddRunnerRequest) returns (AddRunnerResponse) {
+        option (google.api.http) = {
+            post: "/runners"
+            body: "*"
+        };
+    }
+
+    rpc GetRunner(GetRunnerRequest) returns (GetRunnerResponse) {
+        option (google.api.http) = {
+            get: "/runners"
+        };
+    }
+
+    rpc GetRunnerById(GetRunnerByIdRequest) returns (GetRunnerByIdResponse) {
+        option (google.api.http) = {
+            get: "/runners/{id}"
+        };
+    }
+
+    rpc FilterRunner(FilterRunnerRequest) returns (FilterRunnerResponse) {
+        option (google.api.http) = {
+            post: "/runners/_search"
+            body: "*"
+        };
+    }
+
+    rpc UpdateRunner(UpdateRunnerRequest) returns (UpdateRunnerResponse) {
+        option (google.api.http) = {
+            put: "/runners/{id}"
+            body: "*"
+        };
+    }
+
+    rpc DeleteRunner(DeleteRunnerRequest) returns (DeleteRunnerResponse) {
+        option (google.api.http) = {
+            delete: "/runners/{id}"
+        };
+    }
+
+    rpc SupendRunner(SupendRunnerRequest) returns (SupendRunnerResponse) {
+        option (google.api.http) = {
+            post: "/runners/{id}/_suspend"
+            body: "*"
+        };
+    }
+
+    rpc UnSupendRunner(UnSupendRunnerRequest) returns (UnSupendRunnerResponse) {
+        option (google.api.http) = {
+            post: "/runners/{id}/_unsuspend"
+            body: "*"
+        };
+    }
+
+    rpc GetRunnerJobs(GetRunnerJobsRequest) returns (GetRunnerJobsResponse) {
+        option (google.api.http) = {
+            get: "/runners/{id}/jobs"
+        };
+    }    
+
+    rpc GetRunnerProjects(GetRunnerProjectsRequest) returns (GetRunnerProjectsResponse) {
+        option (google.api.http) = {
+            get: "/runners/{id}/projects"
+        };
+    }    
+
+    rpc GetRunnerGroups(GetRunnerGroupsRequest) returns (GetRunnerGroupsResponse) {
+        option (google.api.http) = {
+            get: "/runners/{id}/groups"
+        };
+    }
+
+    // The Runner needs to send his token to the health endpoint, this happens by using the authorization header 
+    // This endpoint is important to verify if the runners can communicate with the API or if a job need rescheduling
+    rpc HealthCheckRunner(HealthCheckRunnerRequest) returns (HealthCheckRunnerResponse) {
+        option (google.api.http) = {
+            post: "/runners/healthz"
+            body: "*"
+        };
+    }
+}
+
+message AddRunnerRequest{
+    Runners runners = 1; 
+}
+
+message AddRunnerResponse{
+    Runners runners = 1;
+}
+
+message GetRunnerRequest{
+    int32 limit = 1;
+    int32 after = 2;
+}
+
+message GetRunnerResponse{
+    Runners runners = 1;
+    int32 results = 2;
+}
+
+message GetRunnerByIdRequest {
+    uint64 id = 1;
+}
+
+message GetRunnerByIdResponse {
+    Runner runner = 1;
+}
+
+message FilterRunnerRequest {
+    Filter filter = 1;
+    RunnerType runnertype = 2;
+    RunnerStatus runnerstatus = 3;
+}
+
+message FilterRunnerResponse {
+    Runners runner = 1;
+    int32 results = 2;
+}
+
+message UpdateRunnerRequest {
+    uint64 id = 1;
+    Runner runner = 2;
+}
+
+message UpdateRunnerResponse {
+    Runner runner = 2;
+}
+
+message DeleteRunnerRequest {
+    uint64 id = 1;
+}
+
+message DeleteRunnerResponse {
+    google.rpc.Status success = 1;
+}
+
+message SupendRunnerRequest {
+    uint64 id = 1;
+}
+
+message SupendRunnerResponse{
+    google.rpc.Status success = 1;
+}
+
+message UnSupendRunnerRequest {
+    uint64 id = 1;
+}
+
+message UnSupendRunnerResponse {
+    google.rpc.Status success = 1;
+}
+
+message GetRunnerJobsRequest {
+    uint64 id = 1;
+}
+
+message GetRunnerJobsResponse {
+    Jobs jobs = 1;
+    int32 results = 2;
+}
+
+message GetRunnerProjectsRequest {
+    uint64 id = 1;
+}
+
+message GetRunnerProjectsResponse {
+    Projects projects = 1;
+    int32 results = 2;
+}
+
+message GetRunnerGroupsRequest {
+    uint64 id = 1;
+}
+
+message GetRunnerGroupsResponse {
+    Runners runners = 1;
+    int32 results = 2;
+}
+
+message Runner {
+    uint64 id = 1; 
+    string name = 2; 
+    RunnerStatus runnerstatus = 3;
+    RunnerType runnertype = 4;
+    string descritpion = 5;
+    bool active = 6;
+    string ipaddress = 7;
+    bool isshared = 8;
+}
+
+message Runners {
+    repeated Runner runners = 1;
+}
+
+message RunnerConfig {
+    //TODO TBD
+}
+
+// This defines on which level a runner ist registered
+enum RunnerType {
+    UNKNOWN = 0;
+    INSTACE = 1;
+    GROUP = 2;
+    PROJECT = 3;
+}
+
+enum RunnerStatus {
+    UNKNOWN = 0;
+    ACTIVE = 1;
+    PAUSED = 2;
+    ONLINE = 3;
+    OFFLINE = 4;
+}

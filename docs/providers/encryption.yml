@@ -1,0 +1,7 @@
+apiVersion: alpha/v1
+kind: Provider
+metadata:
+  name: encryption
+spec: 
+  image: yabslabs/provider/encryption
+  config:

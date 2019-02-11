@@ -1,0 +1,220 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "github.com/mwitkow/go-proto-validators/validator.proto";
+
+package yabs.job.api.v1;
+
+option go_package = "API";
+
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+    info: {
+        title: "yabs job";
+        version: "2.0";
+        contact: {
+            url: "https://github.com/yabslabs/yabs"
+        };
+    };
+
+    schemes: HTTPS;
+
+    consumes: "application/json";
+    consumes: "application/grpc";
+
+    produces: "application/json";
+    produces: "application/grpc";
+};
+
+service JobService {
+    rpc AddJob(AddJobRequest) returns (AddJobResponse) {
+        option (google.api.http) = {
+            post: "/jobs"
+            body: "*"
+        };
+    }
+
+    rpc GetJob(GetJobRequest) returns (GetJobResponse) {
+        option (google.api.http) = {
+            get: "/jobs"
+        };
+    }
+
+    rpc GetJobById(GetJobByIdRequest) returns (GetJobByIdResponse) {
+        option (google.api.http) = {
+            get: "/jobs/{id}"
+        };
+    }
+    
+    rpc FilterJob(FilterJobRequest) returns (FilterJobResponse) {
+        option (google.api.http) = {
+            post: "/jobs/_search"
+            body: "*"
+        };
+    }
+
+    rpc UpdateJob(UpdateJobRequest) returns (UpdateJobResponse) {
+        option (google.api.http) = {
+            put: "/jobs/{id}"
+            body: "*"
+        };
+    }
+
+    rpc DeleteJob(DeleteJobRequest) returns (DeleteJobResponse) {
+            option (google.api.http) = {
+            delete: "/jobs/{id}"
+        };
+    }
+
+    rpc SuspendJob(SuspendJobRequest) returns (SuspendJobResponse) {
+        option (google.api.http) = {
+            post: "/jobs/{id}/_suspend"
+            body: "*"
+        };
+    }
+
+    rpc UnSuspendJob(UnSuspendJobRequest) returns (UnSuspendJobResponse) {
+        option (google.api.http) = {
+            post: "/jobs/{id}/_unsuspend"
+            body: "*"
+        };
+    }
+
+    rpc StartJob(StartJobRequest) returns (StartJobResponse) {
+        option (google.api.http) = {
+                post: "/jobs/{id}/_start"
+                body: "*"
+        };
+    }
+
+    rpc CancleJob(CancleJobRequest) returns (CancleJobResponse) {
+        option (google.api.http) = {
+                post: "/jobs/{id}/_cancle"
+                body: "*"
+        };
+    }
+}
+
+message AddJobRequest {
+    Jobs jobs = 1;
+}
+
+message AddJobResponse {
+    Jobs jobs = 1;
+}
+
+message GetJobRequest {
+    int32 limit = 1;
+    int32 after = 2;
+}
+
+message GetJobResponse {
+    Jobs jobs = 1;
+    int32 results = 2;
+}
+
+message GetJobByIdRequest {
+    uint64 id = 1;
+}
+
+message GetJobByIdResponse {
+    Job job = 1;
+}
+
+message UpdateJobRequest{
+    uint64 id = 1;
+    Job job = 2;
+}
+
+message UpdateJobResponse{
+    Job job = 1;
+}
+
+message DeleteJobRequest {
+    uint64 id = 1;
+}
+
+message DeletejobResponse {
+    google.rpc.Status success = 1;
+}
+
+message FilterJobRequest {
+    Filter filter = 1;
+}
+
+message FilterJobResponse {
+    Jobs jobs = 1;
+    int32 results = 2;
+}
+
+message SuspendJobRequest{
+    uint64 id = 1;
+}
+
+message SuspendJobResponse{
+    google.rpc.Status success = 1;
+}
+
+message UnSuspendJobRequest{
+    uint64 id = 1;
+}
+
+message UnSuspendJobResponse{
+    google.rpc.Status success = 1;
+}
+
+message StartJobRequest{
+    uint64 id = 1;
+}
+
+message StartJobResponse{
+    google.rpc.Status success = 1;
+}
+
+message CancleJobRequest{
+    uint64 id = 1;
+}
+message CancleJobResponse{
+    google.rpc.Status success = 1;
+}
+
+message Job {
+    Header header = 1;
+    Metadata metadata = 2;
+    uint64 id = 3;
+    JobConfig JobConfig = 4;
+    Status status = 5;
+}
+
+message Jobs {
+    repeated Job jobs = 1;
+}
+
+message JobConfig{
+    JobType JobType = 1;
+    //TODO TBD
+}
+
+enum JobType {
+    UNKNOWN = 0;
+    JOB = 1;
+    CRONJOB = 2;
+}
+
+enum Status {
+    UNKNOWN = 0;
+    CREATED = 1;
+    PENDING = 2;
+    RUNNING = 3;
+    FAILED = 4;
+    SUCCEEDED = 5;
+    CANCELED = 6;
+    SKIPPED = 7;
+    STUCK = 8;
+    RETRIED = 9;
+    PAUSED = 10;
+    SUSPENDED = 11;
+}

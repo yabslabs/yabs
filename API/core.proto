@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package yabs.core.api.v1;
+
+option go_package = "API";
+
+message metadata {    
+    map<string, string> metadata = 1;
+}
+
+message header {
+    string apiVersion = 1;
+    kind kind = 2;
+    google.protobuf.Timestamp creationDate = 3;
+    google.protobuf.Timestamp changeDate = 4;
+}
+
+message filter {
+    int64 limit = 1;
+    int64 after = 2;
+    string sort = 3;
+    string name = 4;
+    google.protobuf.Timestamp creationDate = 6;
+    google.protobuf.Timestamp changeDate = 7;
+}
+
+enum kind {
+    UNKNOWN = 0;
+    STORAGE = 1;
+    PROVIDER = 2;
+    JOB = 3;
+    CRONJOB = 4;
+    PROJECT = 5;
+    GROUP = 6;
+    RUNNER = 7;
+}

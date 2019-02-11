@@ -1,0 +1,7 @@
+apiVersion: alpha/v1
+kind: Storage
+metadata:
+  name: fs
+spec:
+  - type: fs
+    path: /someDir/
