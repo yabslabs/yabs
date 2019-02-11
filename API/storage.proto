@@ -111,8 +111,7 @@ message GetStorageByIdResponse {
 }
 
 message UpdateStorageRequest{
-    uint64 id = 1;
-    Storage storage = 2;
+    Storage storage = 1;
 }
 
 message UpdateStorageResponse{
