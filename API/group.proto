@@ -8,7 +8,7 @@ import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 package yabs.groups.api.v1;
 
-option go_package = "API";
+option go_package = "api";
 
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
@@ -89,7 +89,7 @@ message GetGroupResponse {
 }
 
 message GetGroupByIdRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message GetGroupByIdResponse {
@@ -97,7 +97,7 @@ message GetGroupByIdResponse {
 }
 
 message UpdateGroupRequest{
-    uint64 id = 1;
+    string id = 1;
     Group group = 2;
 }
 
@@ -106,7 +106,7 @@ message UpdateGroupResponse{
 }
 
 message DeleteGroupRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message DeleteGroupResponse {
@@ -125,7 +125,7 @@ message FilterGroupResponse {
 message Group {
     Header header = 1;
     Metadata metadata = 2;
-    uint64 id = 3;
+    string id = 3;
     GroupConfig GroupConfig = 4;
     //define additional fields
 }

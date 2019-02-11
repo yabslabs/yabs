@@ -8,7 +8,7 @@ import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 package yabs.project.api.v1;
 
-option go_package = "API";
+option go_package = "api";
 
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
@@ -95,7 +95,7 @@ message GetProjectResponse {
 }
 
 message GetProjectsByIdRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message GetProjectsByIdResponse {
@@ -113,7 +113,7 @@ message FilterProjectResponse {
 }
 
 message UpdateProjectRequest {
-    uint64 id = 1;
+    string id = 1;
     Project project = 2;
 }
 
@@ -122,7 +122,7 @@ message UpdateProjectResponse {
 }
 
 message DeleteProjectRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message DeleteProjectResponse {
@@ -130,12 +130,12 @@ message DeleteProjectResponse {
 }
 
 message GetProjectRunnersRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message GetProjectRunnersResponse {
     Runners runners = 1;
-    int32 results = 2;
+    string results = 2;
 }
 
 message ProjectFilter {
@@ -143,8 +143,9 @@ message ProjectFilter {
 }
 
 message Project {
-    uint64 id = 1; 
-    string name = 2; 
+    Header header = 1;
+    Metadata metadata = 2;
+    string id = 3;
     //TODO
 }
 

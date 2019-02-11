@@ -8,7 +8,7 @@ import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 package yabs.runner.api.v1;
 
-option go_package = "API";
+option go_package = "api";
 
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
@@ -131,7 +131,7 @@ message GetRunnerResponse{
 }
 
 message GetRunnerByIdRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message GetRunnerByIdResponse {
@@ -150,7 +150,7 @@ message FilterRunnerResponse {
 }
 
 message UpdateRunnerRequest {
-    uint64 id = 1;
+    string id = 1;
     Runner runner = 2;
 }
 
@@ -159,7 +159,7 @@ message UpdateRunnerResponse {
 }
 
 message DeleteRunnerRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message DeleteRunnerResponse {
@@ -167,7 +167,7 @@ message DeleteRunnerResponse {
 }
 
 message SupendRunnerRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message SupendRunnerResponse{
@@ -175,7 +175,7 @@ message SupendRunnerResponse{
 }
 
 message UnSupendRunnerRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message UnSupendRunnerResponse {
@@ -183,7 +183,7 @@ message UnSupendRunnerResponse {
 }
 
 message GetRunnerJobsRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message GetRunnerJobsResponse {
@@ -192,7 +192,7 @@ message GetRunnerJobsResponse {
 }
 
 message GetRunnerProjectsRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message GetRunnerProjectsResponse {
@@ -201,7 +201,7 @@ message GetRunnerProjectsResponse {
 }
 
 message GetRunnerGroupsRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message GetRunnerGroupsResponse {
@@ -210,14 +210,15 @@ message GetRunnerGroupsResponse {
 }
 
 message Runner {
-    uint64 id = 1; 
-    string name = 2; 
-    RunnerStatus runnerstatus = 3;
-    RunnerType runnertype = 4;
-    string descritpion = 5;
-    bool active = 6;
-    string ipaddress = 7;
-    bool isshared = 8;
+    Header header = 1;
+    Metadata metadata = 2;
+    string id = 3;  
+    RunnerStatus runnerstatus = 4;
+    RunnerType runnertype = 5;
+    string descritpion = 6;
+    bool active = 7;
+    string ipaddress = 8;
+    bool isshared = 9;
 }
 
 message Runners {

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package yabs.core.api.v1;
 
-option go_package = "API";
+option go_package = "api";
 
 message metadata {    
     map<string, string> metadata = 1;

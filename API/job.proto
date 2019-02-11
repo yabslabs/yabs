@@ -8,7 +8,7 @@ import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 package yabs.job.api.v1;
 
-option go_package = "API";
+option go_package = "api";
 
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
@@ -117,7 +117,7 @@ message GetJobResponse {
 }
 
 message GetJobByIdRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message GetJobByIdResponse {
@@ -125,7 +125,7 @@ message GetJobByIdResponse {
 }
 
 message UpdateJobRequest{
-    uint64 id = 1;
+    string id = 1;
     Job job = 2;
 }
 
@@ -134,7 +134,7 @@ message UpdateJobResponse{
 }
 
 message DeleteJobRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message DeletejobResponse {
@@ -151,7 +151,7 @@ message FilterJobResponse {
 }
 
 message SuspendJobRequest{
-    uint64 id = 1;
+    string id = 1;
 }
 
 message SuspendJobResponse{
@@ -159,7 +159,7 @@ message SuspendJobResponse{
 }
 
 message UnSuspendJobRequest{
-    uint64 id = 1;
+    string id = 1;
 }
 
 message UnSuspendJobResponse{
@@ -167,7 +167,7 @@ message UnSuspendJobResponse{
 }
 
 message StartJobRequest{
-    uint64 id = 1;
+    string id = 1;
 }
 
 message StartJobResponse{
@@ -175,7 +175,7 @@ message StartJobResponse{
 }
 
 message CancleJobRequest{
-    uint64 id = 1;
+    string id = 1;
 }
 message CancleJobResponse{
     google.rpc.Status success = 1;
@@ -184,7 +184,7 @@ message CancleJobResponse{
 message Job {
     Header header = 1;
     Metadata metadata = 2;
-    uint64 id = 3;
+    string id = 3;
     JobConfig JobConfig = 4;
     Status status = 5;
 }

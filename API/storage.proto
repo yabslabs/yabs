@@ -8,7 +8,7 @@ import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 package yabs.storage.api.v1;
 
-option go_package = "API";
+option go_package = "api";
 
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
@@ -103,7 +103,7 @@ message GetStorageResponse {
 }
 
 message GetStorageByIdRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message GetStorageByIdResponse {
@@ -119,7 +119,7 @@ message UpdateStorageResponse{
 }
 
 message DeleteStorageRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message DeleteStorageResponse {
@@ -154,7 +154,7 @@ message FilterStorageResponse {
 message Storage {
     Header header = 1;
     Metadata metadata = 2;
-    uint64 id = 3;
+    string id = 3;
     StorageConfig StorageConfig = 4;
     //define additional fields
 }
@@ -168,7 +168,7 @@ message StorageConfig{
     string path = 2;
 }
 
-enum storageType {
+enum StorageType {
     UNKOWN = 0;
     FS = 1;
     NFS = 2;

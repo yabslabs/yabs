@@ -8,7 +8,7 @@ import "github.com/mwitkow/go-proto-validators/validator.proto";
 
 package yabs.provider.api.v1;
 
-option go_package = "API";
+option go_package = "api";
 
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
@@ -103,7 +103,7 @@ message GetProviderResponse {
 }
 
 message GetProviderByIdRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message GetProviderByIdResponse {
@@ -120,7 +120,7 @@ message FilterProviderResponse {
 }
 
 message UpdateProviderRequest {
-    uint64 id = 1;
+    string id = 1;
     Provider provider = 2;
 }
 
@@ -129,7 +129,7 @@ message UpdateProviderResponse {
 }
 
 message DeleteProviderRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message DeleteProviderResponse {
@@ -137,7 +137,7 @@ message DeleteProviderResponse {
 }
 
 message SupendProviderRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message SupendProviderResponse {
@@ -145,7 +145,7 @@ message SupendProviderResponse {
 }
 
 message UnSupendProviderRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message UnSupendProviderResponse {
@@ -153,8 +153,9 @@ message UnSupendProviderResponse {
 }
 
 message Provider {
-    uint64 id = 1; 
-    string name = 2; 
+    Header header = 1;
+    Metadata metadata = 2;
+    string id = 3; 
     //TODO TBD
 }
 
