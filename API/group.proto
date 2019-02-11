@@ -110,7 +110,7 @@ message DeleteGroupRequest {
 }
 
 message DeleteGroupResponse {
-    google.rpc.Status success = 1;
+    google.rpc.Status status = 1;
 }
 
 message FilterGroupRequest {
@@ -126,7 +126,7 @@ message Group {
     Header header = 1;
     Metadata metadata = 2;
     string id = 3;
-    GroupConfig GroupConfig = 4;
+    GroupConfig group_config = 4;
     //define additional fields
 }
 
@@ -135,7 +135,7 @@ message Groups {
 }
 
 message GroupeConfig{
-    GroupType GroupType = 1;
+    GroupType group_type = 1;
     //TODO ACL comes here
 }
 

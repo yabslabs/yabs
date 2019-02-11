@@ -138,7 +138,7 @@ message DeleteJobRequest {
 }
 
 message DeletejobResponse {
-    google.rpc.Status success = 1;
+    google.rpc.Status status = 1;
 }
 
 message FilterJobRequest {
@@ -155,7 +155,7 @@ message SuspendJobRequest{
 }
 
 message SuspendJobResponse{
-    google.rpc.Status success = 1;
+    google.rpc.Status status = 1;
 }
 
 message UnSuspendJobRequest{
@@ -163,7 +163,7 @@ message UnSuspendJobRequest{
 }
 
 message UnSuspendJobResponse{
-    google.rpc.Status success = 1;
+    google.rpc.Status status = 1;
 }
 
 message StartJobRequest{
@@ -171,21 +171,21 @@ message StartJobRequest{
 }
 
 message StartJobResponse{
-    google.rpc.Status success = 1;
+    google.rpc.Status status = 1;
 }
 
 message CancleJobRequest{
     string id = 1;
 }
 message CancleJobResponse{
-    google.rpc.Status success = 1;
+    google.rpc.Status status = 1;
 }
 
 message Job {
     Header header = 1;
     Metadata metadata = 2;
     string id = 3;
-    JobConfig JobConfig = 4;
+    JobConfig job_config = 4;
     Status status = 5;
 }
 
@@ -194,7 +194,7 @@ message Jobs {
 }
 
 message JobConfig{
-    JobType JobType = 1;
+    JobType job_type = 1;
     //TODO TBD
 }
 

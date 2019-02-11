@@ -123,7 +123,7 @@ message DeleteStorageRequest {
 }
 
 message DeleteStorageResponse {
-    google.rpc.Status success = 1;
+    google.rpc.Status status = 1;
 }
 
 message SupendStorageRequest {
@@ -155,7 +155,7 @@ message Storage {
     Header header = 1;
     Metadata metadata = 2;
     string id = 3;
-    StorageConfig StorageConfig = 4;
+    StorageConfig Storage_config = 4;
     //define additional fields
 }
 
@@ -164,7 +164,7 @@ message Storages {
 }
 
 message StorageConfig{
-    StoragetType storageType = 1;
+    StoragetType storag_type = 1;
     string path = 2;
 }
 

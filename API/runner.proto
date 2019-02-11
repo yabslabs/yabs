@@ -140,8 +140,8 @@ message GetRunnerByIdResponse {
 
 message FilterRunnerRequest {
     Filter filter = 1;
-    RunnerType runnertype = 2;
-    RunnerStatus runnerstatus = 3;
+    RunnerType runner_type = 2;
+    RunnerStatus runner_status = 3;
 }
 
 message FilterRunnerResponse {
@@ -163,7 +163,7 @@ message DeleteRunnerRequest {
 }
 
 message DeleteRunnerResponse {
-    google.rpc.Status success = 1;
+    google.rpc.Status status = 1;
 }
 
 message SupendRunnerRequest {
@@ -171,7 +171,7 @@ message SupendRunnerRequest {
 }
 
 message SupendRunnerResponse{
-    google.rpc.Status success = 1;
+    google.rpc.Status status = 1;
 }
 
 message UnSupendRunnerRequest {
@@ -179,7 +179,7 @@ message UnSupendRunnerRequest {
 }
 
 message UnSupendRunnerResponse {
-    google.rpc.Status success = 1;
+    google.rpc.Status status = 1;
 }
 
 message GetRunnerJobsRequest {
@@ -213,12 +213,12 @@ message Runner {
     Header header = 1;
     Metadata metadata = 2;
     string id = 3;  
-    RunnerStatus runnerstatus = 4;
-    RunnerType runnertype = 5;
+    RunnerStatus runner_status = 4;
+    RunnerType runner_type = 5;
     string descritpion = 6;
     bool active = 7;
-    string ipaddress = 8;
-    bool isshared = 9;
+    string ip_address = 8;
+    bool is_shared = 9;
 }
 
 message Runners {

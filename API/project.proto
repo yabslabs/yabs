@@ -104,7 +104,7 @@ message GetProjectsByIdResponse {
 
 message FilterProjectRequest {
     Filter filter = 1;
-    ProjectType projectType = 2;
+    ProjectType project_type = 2;
 }
 
 message FilterProjectResponse {
@@ -126,7 +126,7 @@ message DeleteProjectRequest {
 }
 
 message DeleteProjectResponse {
-    google.rpc.Status success = 1;
+    google.rpc.Status status = 1;
 }
 
 message GetProjectRunnersRequest {
