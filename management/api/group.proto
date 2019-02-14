@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+import "github.com/yabslabs/yabs/API/core.proto";
+
+package yabslabs.yabs.mgmt.api.v1;
+option go_package = "api";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+    info: {
+        title: "Management API for yabs";
+        version: "1.0";
+        contact: {
+            url: "https://github.com/yabslabs/yabs"
+        };
+    };
+
+    schemes: HTTPS;
+
+    consumes: "application/json";
+    consumes: "application/grpc";
+
+    produces: "application/json";
+    produces: "application/grpc";
+};
+
+service GroupService {
+
+    //Group
+    rpc AddGroup(AddGroupRequest) returns (AddGroupResponse) {
+        option (google.api.http) = {
+            post: "/groups"
+            body: "*"
+        };
+    }
+
+    rpc GetGroup(GetGroupRequest) returns (GetGroupResponse) {
+        option (google.api.http) = {
+            get: "/groups/{id}"
+        };
+    }
+
+    rpc ListGroup(ListGroupRequest) returns (ListGroupResponse) {
+        option (google.api.http) = {
+            get: "/groups"
+        };
+    }
+
+    rpc FilterGroup(FilterGroupRequest) returns (FilterGroupResponse) {
+        option (google.api.http) = {
+            post: "/groups/_search"
+            body: "*"
+        };
+    }
+
+    rpc DeleteGroup(DeleteGroupRequest) returns (DeleteGroupResponse) {
+        option (google.api.http) = {
+            delete: "/groups/{id}"
+        };
+    }
+
+    // Subgroup
+    rpc AddSubgroupToGroup(AddSubgroupToGroupRequest) returns (AddSubgroupToGroupResponse) {
+        option (google.api.http) = {
+            post: "/groups/{group_id}/subgroups"
+            body: "*"
+        };
+    }
+
+    rpc GetSubgroupFromGroup(GetSubgroupFromGroupRequest) returns (GetSubgroupFromGroupResponse) {
+        option (google.api.http) = {
+            get: "/groups/{group_id}/subgroups/{subgroup_id}"
+        };
+    }
+
+    rpc ListSubgroupFromGroup(ListSubgroupFromGroupRequest) returns (ListSubgroupFromGroupResponse) {
+        option (google.api.http) = {
+            get: "/groups/{group_id}/subgroups"
+        };
+    }
+
+    rpc DeleteSubgroupFromGroup(DeleteSubgroupFromGroupRequest) returns (DeleteSubgroupFromGroupResponse) {
+        option (google.api.http) = {
+            delete: "/groups/{group_id}/subgroups/{subgroup_id}"
+        };
+    }
+}
